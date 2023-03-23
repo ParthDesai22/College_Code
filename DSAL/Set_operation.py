@@ -1,60 +1,80 @@
 class set_operate:
     def __init__(self):
-        self.data1=set()
-        self.data2=set()
-        
-    def se1(self):
+        data=set()
+        data1=set()
+        data2=set()
+
+    def add_elem(self,data):
         print("Enter Number of Element You Want To Add In Set: ")
         n=int(input())
         for i in range(n):
-            elem=input("Enter The Elment: ")
-            self.data1.add(elem)
-            
-    def add_elem(self):
-        aelem=input("Enter Element To Add in Set")
-        self.data1.add(aelem)
-        print(self.data1)
+            elem=input("Enter The Element: ")
+            data.add(elem)
+        print(data)    
         
-    def del_elem(self):
-        print(self.data1)
+    def del_elem(self,data):
+        print(data)
         delem=input("Enter The Element To Remove: ")
-        self.data1.remove(delem)
-        print(self.data1)
+        data.remove(delem)
+        print(data)
         
-    def size_of_set(self):
-        print("Size Of Set Is : ",len(self.data1))
+    def size_of_set(self,data):
+        print("Size Of Set Is : ",len(data))
         
-    def se2(self):
-        m=int(input("Enter The Number Of Element To Store In Second Set"))
-        for i in range(m):
-            elem2=input("Enter The Element To Store: ")
-            self.data2.add(elem2)
-        print(self.data2)  
+    def intersection(self,data1,data2):
+        print("Intersection Of Set Are: ",data1.intersection(data2))
         
-    def intersection(self):
-        print("Intersection Of Set Are: ",self.data1.intersection(self.data2))
+    def union(self,data1,data2):
+        print("Union Of Sets Are: ",data1.union(data2))
         
-    def union(self):
-        print("Union Of Sets Are: ",self.data1.union(self.data2))
+    def difference(self,data1,data2):
+        print("Difference Of Set Are: ",data1.difference(data2))
         
-    def difference(self):
-        print("Difference Of Set Are: ",self.data1.difference(self.data2))
-        
-    def sub_set(self):
-        if(self.data1.issubset(self.data2)):
+    def sub_set(self,data1,data2):
+        if(data1.issubset(data2)):
+            print("SET 1 Is Subset Of SET 2")
+        if (data2.issubset(data1)):
             print("SET 2 Is Subset Of SET 1")
-        if (self.data2.issubset(self.data1)):
-            print("SET1 Is Subset Of SET 2")
         else:
             print("No Subset Are Present")
-            
+a=True
 s=set_operate()
-s.se1()
-s.se2()
-s.add_elem()
-s.del_elem()
-s.size_of_set()
-s.intersection()
-s.union()
-s.difference()
-s.sub_set()
+data1=set()
+data2=set()
+while(a==True):
+    c=int(input("Enter Operation You Want To Carry On Set: \n 1.Add Element \n 2.Delete Element \n 3.Display Size Of Set \n 4.Intersection \n 5.Union \n 6.Difference \n 7.Sub-Set Checker \n 8.End \n"))
+    if(c==1):
+        d=int(input("Enter Set In Which You Want To Add Element: \n 1.SET 1 \n 2.SET 2 \n"))
+        if (d==1):
+            s.add_elem(data1)
+        else:
+            s.add_elem(data2)
+    if(c==2):
+        d=int(input("Enter Set From Which You Want To Delete Element: \n 1.SET 1 \n 2.SET 2 \n"))
+        if (d==1):
+            s.del_elem(data1)
+        else:
+            s.del_elem(data2)
+    if(c==3):
+        d=int(input("Enter The Set You Want To Display The Size Of : \n 1.SET 1 \n 2.SET 2 \n"))
+        if(d==1):
+            s.size_of_set(data1)
+        else:
+            s.size_of_set(data2)
+    if(c==4):
+        s.intersection(data1,data2)
+    if(c==5):
+        s.union(data1,data2)
+    if(c==6):
+        d=int(input("Enter Difference You Want To Perform: \n 1.SET 1 - SET 2 \n 2.SET 2 - SET 1 \n"))
+        if(d==1):
+            s.difference(data1,data2)
+        else:
+            s.difference(data2,data1)
+    if(c==7):
+        s.sub_set(data1,data2)
+    if(c==8):
+        a=False
+        print("Thank You!!")
+        break
+        
