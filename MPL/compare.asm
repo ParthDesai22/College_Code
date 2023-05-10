@@ -14,7 +14,7 @@ syscall
 
 section .data
 
-array db 11h,59h,23h,66h,89h
+array db 01h,02h,03h,04h,05h
 
 space db "  "
 
@@ -37,7 +37,7 @@ _start:
 
 print msg1,msglen1
 
-print msg2,msglen2
+print msg3,msglen3
 
 mov byte[counter],05
 mov rsi,array
@@ -52,17 +52,20 @@ inc rsi
 dec byte[counter]
 jnz next
 
-mov byte[counter],05
+print msg2,msglen2
+
+mov cx,05
 mov rsi,array
 mov al,0
+mov dl,[rsi]
 
 repeat:
-cmp al,[rsi]
+cmp al,dl
 jg skip
-mov al,[rsi]
+mov al,dl
 skip:
 inc rsi
-dec byte[counter]
+dec cx
 jnz repeat
 
 call disp
@@ -83,7 +86,7 @@ display2:
 mov [rdi],dl
 inc rdi
 loop up1
-print result,4
+print result,2
 ret
 
 end
