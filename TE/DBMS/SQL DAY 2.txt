@@ -21,10 +21,8 @@ mysql> show databases
 mysql> use Bank1;
 Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
-
 Database changed
-mysql> desc Bank1;
-ERROR 1146 (42S02): Table 'Bank1.Bank1' doesn't exist
+
 mysql> show tables
     -> ;
 +-----------------+
@@ -147,8 +145,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 | Branch_City | varchar(20) | YES  |     | NULL    |       |
 | Assets      | int(10)     | YES  |     | NULL    |       |
 +-------------+-------------+------+-----+---------+-------+
-3 rows in set (0.00 sec)
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences Branch(Branch_Name))' at line 5
+
 mysql> create table Account
     -> (Account_No int(15) primary key,
     -> Branch_Name varchar(20),
@@ -158,11 +155,6 @@ mysql> create table Account
 mysql> create table Customer(Account_No int(15) primary key,Customer_Name varchar(20),Customer_City varchar(20));
 Query OK, 0 rows affected (0.20 sec)
 
-mysql> create table Depositor(Account_No int(15) primary key,Customer_Name varchar(20),Customer_City varchar(20));
-mysql> create table Depositor(Accoundrot_No int(15) primary key,Customer_Name varchar(20),Customer_City varchar(20));
-
-^C
-mysql> 
 mysql> drop table Customer;
 Query OK, 0 rows affected (0.13 sec)
 
@@ -170,7 +162,6 @@ mysql> desc Branch;
 +-------------+-------------+------+-----+---------+-------+
 | Field       | Type        | Null | Key | Default | Extra |
 +-------------+-------------+------+-----+---------+-------+
-
 
 mysql> desc Branch;
 +-------------+-------------+------+-----+---------+-------+
@@ -241,8 +232,6 @@ mysql> desc Depositor;
 mysql> create table Loan (Loan_No int primary key, Branch_Name varchar(20), Amount int, foreign key(Branch_Name) references Branch(Branch_Name)); 
 Query OK, 0 rows affected (0.24 sec)
 
-mysql> create table Borrower (Customer_Name varchar(20),Loan_No int, foreign key(Customer_Name) references Customer(Customer_Name0),foreign key(Loan_No) references Loan(Loan_No));
-ERROR 1215 (HY000): Cannot add foreign key constraint
 mysql> desc Loan
     -> ;
 +-------------+-------------+------+-----+---------+-------+
@@ -257,10 +246,6 @@ mysql> desc Loan
 mysql> create table Borrower (Customer_Name varchar(20),Loan_No int, foreign key(Customer_Name) references Customer(Customer_Name),foreign key(Loan_No) references Loan(Loan_No));
 Query OK, 0 rows affected (0.28 sec)
 
-mysql>    
-
-^C
-mysql> 
 mysql> desc Branch;
 +-------------+-------------+------+-----+---------+-------+
 | Field       | Type        | Null | Key | Default | Extra |
@@ -319,11 +304,6 @@ mysql> desc Borrower;
 +---------------+-------------+------+-----+---------+-------+
 2 rows in set (0.00 sec)
 
-mysql> insert into Branch
-    -> values ('BHISE','Pune',1000000),('MALI','Chinchwad','200000),('SABLE','Kharadi',5000000);
-    '> values ('BHISE','Pune',1000000),('MALI','Chinchwad','200000),('SABLE','Kharadi',5000000);
-
-^C
 mysql> insert into Branch
     -> values ('BHISE','Pune',1000000),('MALI','Chinchwad',200000),('SABLE','Kharadi',5000000);
 Query OK, 3 rows affected (0.08 sec)

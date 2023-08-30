@@ -1,0 +1,260 @@
+(base) admin1@414-38:~$ sudo mysql
+[sudo] password for admin1: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.42-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Abhishek           |
+| Anurag             |
+| Bank               |
+| Bank_Detail        |
+| College            |
+| Company_Details    |
+| MESCOE             |
+| TE                 |
+| TEA_48             |
+| TECOMP1            |
+| TE_B_56            |
+| TE_COMP1           |
+| baank              |
+| bank1              |
+| branch             |
+| college            |
+| customer           |
+| db3                |
+| demo               |
+| firstdatabase      |
+| fruit              |
+| mescoe             |
+| mysql              |
+| performance_schema |
+| person             |
+| student            |
+| sys                |
+| tb                 |
++--------------------+
+29 rows in set (0.16 sec)
+
+mysql> create database Company;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> alter table companies add primary key(comp_id);
+Query OK, 0 rows affected (0.38 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc companies;
++---------+------------+------+-----+---------+-------+
+| Field   | Type       | Null | Key | Default | Extra |
++---------+------------+------+-----+---------+-------+
+| comp_id | varchar(5) | NO   | PRI | NULL    |       |
+| name    | varchar(5) | YES  |     | NULL    |       |
+| cost    | int(4)     | YES  |     | NULL    |       |
+| year    | year(4)    | YES  |     | NULL    |       |
++---------+------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into companies
+    -> values ('C001','ONGC',2000,2010);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into companies values ('C002','HPCL',2500,2012),('C005','IOCL',1000,2014),('C006','BHEL',3000,2015);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders values ('C001','Oil',109),('C002','Gas',121),('C005','Tele',115);
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc companies;
++---------+------------+------+-----+---------+-------+
+| Field   | Type       | Null | Key | Default | Extra |
++---------+------------+------+-----+---------+-------+
+| comp_id | varchar(5) | NO   | PRI | NULL    |       |
+| name    | varchar(5) | YES  |     | NULL    |       |
+| cost    | int(4)     | YES  |     | NULL    |       |
+| year    | year(4)    | YES  |     | NULL    |       |
++---------+------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc orders;
++----------+------------+------+-----+---------+-------+
+| Field    | Type       | Null | Key | Default | Extra |
++----------+------------+------+-----+---------+-------+
+| comp_id  | varchar(5) | YES  | MUL | NULL    |       |
+| domain   | varchar(5) | YES  |     | NULL    |       |
+| quantity | int(4)     | YES  |     | NULL    |       |
++----------+------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from companies;
++---------+------+------+------+
+| comp_id | name | cost | year |
++---------+------+------+------+
+| C001    | ONGC | 2000 | 2010 |
+| C002    | HPCL | 2500 | 2012 |
+| C005    | IOCL | 1000 | 2014 |
+| C006    | BHEL | 3000 | 2015 |
++---------+------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from orders;
++---------+--------+----------+
+| comp_id | domain | quantity |
++---------+--------+----------+
+| C001    | Oil    |      109 |
+| C002    | Gas    |      121 |
+| C005    | Tele   |      115 |
++---------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select companies.name,companies.cost,orders.domain,orders.quantity
+    -> from companies
+    -> inner join orders on companies.comp_id=orders.comp_id;
++------+------+--------+----------+
+| name | cost | domain | quantity |
++------+------+--------+----------+
+| ONGC | 2000 | Oil    |      109 |
+| HPCL | 2500 | Gas    |      121 |
+| IOCL | 1000 | Tele   |      115 |
++------+------+--------+----------+
+3 rows in set (0.01 sec)
+
+mysql> select companies.name,companies.cost,orders.domain,orders.quantity from companies left join orders on companies.comp_id=orders.comp_id; 
++------+------+--------+----------+
+| name | cost | domain | quantity |
++------+------+--------+----------+
+| ONGC | 2000 | Oil    |      109 |
+| HPCL | 2500 | Gas    |      121 |
+| IOCL | 1000 | Tele   |      115 |
+| BHEL | 3000 | NULL   |     NULL |
++------+------+--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select companies.name,companies.cost,orders.domain,orders.quantity from companies right join orders on companies.comp_id=orders.comp_id;
++------+------+--------+----------+
+| name | cost | domain | quantity |
++------+------+--------+----------+
+| ONGC | 2000 | Oil    |      109 |
+| HPCL | 2500 | Gas    |      121 |
+| IOCL | 1000 | Tele   |      115 |
++------+------+--------+----------+
+3 rows in set (0.01 sec)
+
+mysql> select name,cost from companies
+    -> union
+    -> select domain,quantity from orders;
++------+------+
+| name | cost |
++------+------+
+| ONGC | 2000 |
+| HPCL | 2500 |
+| IOCL | 1000 |
+| BHEL | 3000 |
+| Oil  |  109 |
+| Gas  |  121 |
+| Tele |  115 |
++------+------+
+7 rows in set (0.01 sec)
+
+mysql> select * from companies;
++---------+------+------+------+
+| comp_id | name | cost | year |
++---------+------+------+------+
+| C001    | ONGC | 2000 | 2010 |
+| C002    | HPCL | 2500 | 2012 |
+| C005    | IOCL | 1000 | 2014 |
+| C006    | BHEL | 3000 | 2015 |
++---------+------+------+------+
+4 rows in set (0.01 sec)
+
+mysql> select name,cost from companies
+    -> union all
+    -> select domain,quantity from orders;
++------+------+
+| name | cost |
++------+------+
+| ONGC | 2000 |
+| HPCL | 2500 |
+| IOCL | 1000 |
+| BHEL | 3000 |
+| Oil  |  109 |
+| Gas  |  121 |
+| Tele |  115 |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql> create view V1 as
+    -> select name,quantity 
+    -> from companies
+    -> inner join orders on companies.comp_id=orders.comp_id;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from V1;
++------+----------+
+| name | quantity |
++------+----------+
+| ONGC |      109 |
+| HPCL |      121 |
+| IOCL |      115 |
++------+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into V2 values('C007','ABCD');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from V2;
++---------+------+
+| comp_id | name |
++---------+------+
+| C001    | ONGC |
+| C002    | HPCL |
+| C005    | IOCL |
+| C006    | BHEL |
+| C007    | ABCD |
++---------+------+
+5 rows in set (0.00 sec)
+
+mysql> update V2 set name = 'WXYZ' where comp_id='C007';
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from V2;
++---------+------+
+| comp_id | name |
++---------+------+
+| C001    | ONGC |
+| C002    | HPCL |
+| C005    | IOCL |
+| C006    | BHEL |
+| C007    | WXYZ |
++---------+------+
+5 rows in set (0.00 sec)
+
+mysql> delete from V2 where comp_id='C007';
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from V2;
++---------+------+
+| comp_id | name |
++---------+------+
+| C001    | ONGC |
+| C002    | HPCL |
+| C005    | IOCL |
+| C006    | BHEL |
++---------+------+
+4 rows in set (0.00 sec)
+

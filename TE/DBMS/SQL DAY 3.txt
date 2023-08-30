@@ -1,38 +1,10 @@
-admin1@admin1-Lenovo-S510:~$ sudo mysql
-[sudo] password for admin1: 
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 10
-Server version: 8.0.34-0ubuntu0.20.04.1 (Ubuntu)
-
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql> create database Student_Info
-    -> ;
-Query OK, 1 row affected (0.13 sec)
-
 mysql> use Student_Info;
 Database changed
-mysql> create table Student(
-    -> ID int Primary Key,
-    -> Student_Name varchar(20) Not Null,
-    -> Phone_No int Unique,
-    -> Dept char(10) Default 'TE COMP',
-    -> Section int,
-    -> check (Section==1)
-    -> 
-    -> ;
-ROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create table Student( ID int Primary Key Auto_increment, Student_Name varchar(20' at line 1
+
 mysql> create table Student( ID int Primary Key Auto_increment, Student_Name varchar(20) not null, Phone_No int(10) Unique, Dept char(10) Default 'TE COMP', Section int, check (Section=1));
 Query OK, 0 rows affected, 1 warning (0.48 sec)
 
-mysql> desc Student
-    -> ;
+mysql> desc Student;
 +--------------+-------------+------+-----+---------+----------------+
 | Field        | Type        | Null | Key | Default | Extra          |
 +--------------+-------------+------+-----+---------+----------------+
@@ -74,10 +46,6 @@ Query OK, 1 row affected (0.06 sec)
 mysql> insert into Student(Student_Name,Phone_no,Section) values('Omkar',123456788,1);
 Query OK, 1 row affected (0.12 sec)
 
-mysql> insert into Student(Student_Name,Phone_no,Section) values('ABC',123456788,1);
-ERROR 1062 (23000): Duplicate entry '123456788' for key 'Student.Phone_No'
-mysql> insert into Student(Student_Name,Phone_no,Section) values('ABC',123456799,2);
-ERROR 3819 (HY000): Check constraint 'Student_chk_1' is violated.
 mysql> select * from Student;
 +----+--------------+-----------+---------+---------+
 | ID | Student_Name | Phone_No  | Dept    | Section |
@@ -94,16 +62,3 @@ mysql> select * from Student;
 | 10 | Omkar        | 123456788 | TE COMP |       1 |
 +----+--------------+-----------+---------+---------+
 10 rows in set (0.00 sec)
-
-mysql> create table Department();
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
-mysql> create table Department()
-    -> ;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
-mysql> create table Department(
-    -> Student_ID int,
-    -> Department_Name varchar(20) default 'TE COMP',
-    -> Attendance int,
-    -> foreign key(Student_ID) references Student(ID);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
-mysql> 
