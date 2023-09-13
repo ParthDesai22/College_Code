@@ -1,0 +1,15 @@
+-- create table Area (r number(2),area number(10,2));
+-- declare
+-- r number(5);
+-- area number(10,2);
+-- pi constant number(4,2):=3.14;
+-- begin
+-- r:=3;
+-- while r<=7
+-- loop
+-- area:=pi*power(r,2);
+-- insert into Area values(r,area);
+-- r:=r+1;
+-- end loop;
+-- end;
+select * from Area;
