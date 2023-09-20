@@ -5,26 +5,26 @@
 -- insert into Borrower values(3,'Omkar',TO_DATE('07-08-2023','DD-MM-YYYY'),'Rich Dad Poor Dad','I');
 -- insert into Borrower values(4,'Sahil',TO_DATE('19-07-2023','DD-MM-YYYY'),'MySQL','I');
 -- insert into Borrower values(5,'Shivam',TO_DATE('10-09-2023','DD-MM-YYYY'),'C++','I');
--- select * from Borrower;
+-- select * from Fine;
 
-declare
-stu_rollno number(3);
-book_name varchar2(20);
-issue_date date;
-return_date date;
-tot_days number(5);
-amount number(5);
-begin
-dbms_output.put_line('Enter Student Roll Number');
-stu_rollno:=4;
-dbms_output.put_line('Enter Name of Library Book');
-book_name:=MySQL;
-select DateOfIssue into issue_date from Borrower where stu_rollno=Roll_No and book_name=NameOfBook;
-set return_date:=trunc(sysdate);
-set tot_days=reture_date-issue_date;
-if tot_days>30 then amount:=(30*5)+((tot_days-30)*50);
-elsif (tot_days>=15 and tot_days<=30) then amount:=(tot_days*5);
-else amount:=0;
-end if;
-insert into Fine values(stu_rollno,return_date,amount);
-end;
+-- declare
+-- stu_rollno number;
+-- book_name varchar2(20);
+-- issue_date DATE;
+-- return_date DATE:= TO_DATE(SYSDATE,'DD-MM-YYYY');
+-- tot_days number;
+-- amount number;
+-- begin
+-- stu_rollno:=4;
+-- book_name:='MySQL';
+-- select TO_DATE(Borrower.DateOfIssue,'DD-MM-YYYY') into issue_date from Borrower where Borrower.Roll_No = stu_rollno and Borrower.NameOfBook = book_name;
+-- tot_days:=return_date-issue_date;
+-- IF tot_days>30 THEN
+--     amount:=(30*5)+((tot_days-30)*50);
+-- ELSIF (tot_days>=15 AND tot_days<=30) THEN
+--     amount:=(tot_days*5);
+-- ELSE amount:=0;
+-- end IF;
+-- insert into Fine values(stu_rollno,return_date,amount);
+-- end;
+select* from Fine;
