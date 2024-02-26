@@ -1,11 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<!DOCTYPE html>  
+<html lang = "en">  
+<head>  
+<title> JavaScript Calculator </title>  
+  
+<style>  
+body {
+	background-color: #adadad;
+	font-family: Arial;
+}
+
+.container {
+    background-color: ;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100vw;
+}
+
+.button {
+	display: inline-block;
+	margin: 2px;
+	width: 42px;
+	height: 42px;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 4px;
+}
+
+.mathButtons {
+	margin: 2px 2px 6px 2px;
+	color: white;
+	background-color: rgb(117, 115, 115);
+}
+
+#clearButton{
+    color: white;
+    background-color: red;
+
+}
+
+#equalsButton{
+    color: black;
+    background-color: greenyellow;
+}
+
+#c{
+    background-color: black;
+}
+
+#display{
+    width: 187px;
+    height: 20px;
+}
+</style>  
+  
+</head>  
   <body>
     <div class="container">
         <fieldset id="c">
@@ -34,14 +84,10 @@
 
                 <input id="clearButton" class="button" type="button" value="C" onclick="calculator.display.value = ''">
                 <input class="button digit" type="button" value="0" onclick="calculator.display.value +='0'">
-                <input id="equalsButton" class="button mathButtons" type="button" value="=" onclick="calculator.display.value = eval(calculator.display.valu)">
+                <input id="equalsButton" class="button mathButtons" type="button" value="=" onclick="calculator.display.value = eval(calculator.display.value)">
                 <input class="button mathButtons" type="button" value="/" onclick="calculator.display.value += ' / '">
             </form>
         </fieldset>
     </div>
 </body>
 </html>
-
-
-
-
