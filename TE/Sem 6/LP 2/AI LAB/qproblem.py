@@ -1,8 +1,16 @@
-N = 8 # (size of the chessboard)
-
+N = int(input("Enter the numbers of Queens"))
+def printboard(board):
+	for row in board:
+		for element in row:
+			if element==0:
+				print(".",end=" ")
+			else:
+				print("Q",end=" ")
+		print()
+			
 def solveNQueens(board, col):
 	if col == N:
-		print(board)
+		printboard(board)
 		return True
 	for i in range(N):
 		if isSafe(board, i, col):
@@ -27,4 +35,3 @@ def isSafe(board, row, col):
 board = [[0 for x in range(N)] for y in range(N)]
 if not solveNQueens(board, 0):
 	print("No solution found")
-
